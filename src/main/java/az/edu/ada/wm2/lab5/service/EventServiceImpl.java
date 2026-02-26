@@ -22,3 +22,16 @@ public List<Event> getUpcomingEvents() {
                     event.getDate().isAfter(today))
             .collect(Collectors.toList());
 }
+
+@Override
+public List<Event> getEventsByPriceRange(double minPrice, double maxPrice) {
+    if (minPrice < 0 || maxPrice < 0 || minPrice > maxPrice) {
+        return List.of();
+    }
+
+    return eventRepository.findAll()
+            .stream()
+            .filter(event -> event.getPrice() >= minPrice &&
+                    event.getPrice() <= maxPrice)
+            .collect(Collectors.toList());
+}

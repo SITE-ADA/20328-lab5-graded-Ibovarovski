@@ -68,6 +68,7 @@ public Event updateEventPrice(Long eventId, double newPrice) {
     }
 
     event.setPrice(newPrice);
+    event.setPrice(newPrice);
     return eventRepository.save(event);
 }
 

@@ -1,8 +1,20 @@
+
+package az.edu.ada.wm2.lab5.service;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.w3c.dom.events.Event;
+import az.edu.ada.wm2.lab5.entity.Event;
+import az.edu.ada.wm2.lab5.repository.EventRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class EventServiceImpl implements EventService {
+
+    @Autowired
+    private EventRepository eventRepository;
 
 @Override
 public List<Event> getEventsByTag(String tag) {
@@ -66,9 +78,9 @@ public Event updateEventPrice(Long eventId, double newPrice) {
     if (event == null) {
         return null;
     }
-
     event.setPrice(newPrice);
-    event.setPrice(newPrice);
+   
     return eventRepository.save(event);
+}
 }
 

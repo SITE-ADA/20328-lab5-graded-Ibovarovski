@@ -115,3 +115,15 @@ public ResponseEntity<List<Event>> filterByDate(
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }
+@GetMapping("/filter/price")
+public ResponseEntity<List<Event>> filterByPrice(
+        @RequestParam("min") BigDecimal min,
+        @RequestParam("max") BigDecimal max) {
+
+    try {
+        List<Event> events = eventService.filterByPrice(min, max);
+        return new ResponseEntity<>(events, HttpStatus.OK);
+    } catch (Exception e) {
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+}

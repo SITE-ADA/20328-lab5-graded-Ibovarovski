@@ -35,3 +35,17 @@ public List<Event> getEventsByPriceRange(double minPrice, double maxPrice) {
                     event.getPrice() <= maxPrice)
             .collect(Collectors.toList());
 }
+
+@Override
+public List<Event> getEventsByDateRange(LocalDate startDate, LocalDate endDate) {
+    if (startDate == null || endDate == null || startDate.isAfter(endDate)) {
+        return List.of();
+    }
+
+    return eventRepository.findAll()
+            .stream()
+            .filter(event -> event.getDate() != null &&
+                    (event.getDate().isEqual(startDate) || event.getDate().isAfter(startDate)) &&
+                    (event.getDate().isEqual(endDate) || event.getDate().isBefore(endDate)))
+            .collect(Collectors.toList());
+}

@@ -1,3 +1,9 @@
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.w3c.dom.events.Event;
+
 @Override
 public List<Event> getEventsByTag(String tag) {
     if (tag == null || tag.isBlank()) {
@@ -49,3 +55,19 @@ public List<Event> getEventsByDateRange(LocalDate startDate, LocalDate endDate) 
                     (event.getDate().isEqual(endDate) || event.getDate().isBefore(endDate)))
             .collect(Collectors.toList());
 }
+@Override
+public Event updateEventPrice(Long eventId, double newPrice) {
+    if (eventId == null || newPrice < 0) {
+        return null;
+    }
+
+    Event event = eventRepository.findById(eventId).orElse(null);
+
+    if (event == null) {
+        return null;
+    }
+
+    event.setPrice(newPrice);
+    return eventRepository.save(event);
+}
+

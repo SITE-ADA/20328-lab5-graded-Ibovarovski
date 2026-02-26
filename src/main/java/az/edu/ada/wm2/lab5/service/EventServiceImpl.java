@@ -12,3 +12,13 @@ public List<Event> getEventsByTag(String tag) {
             .collect(Collectors.toList());
 }
 
+@Override
+public List<Event> getUpcomingEvents() {
+    LocalDate today = LocalDate.now();
+
+    return eventRepository.findAll()
+            .stream()
+            .filter(event -> event.getDate() != null &&
+                    event.getDate().isAfter(today))
+            .collect(Collectors.toList());
+}

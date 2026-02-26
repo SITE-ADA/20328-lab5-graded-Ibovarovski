@@ -127,3 +127,14 @@ public ResponseEntity<List<Event>> filterByPrice(
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }
+@GetMapping("/filter/tag")
+public ResponseEntity<List<Event>> filterByTag(
+        @RequestParam("tag") String tag) {
+
+    try {
+        List<Event> events = eventService.filterByTag(tag);
+        return new ResponseEntity<>(events, HttpStatus.OK);
+    } catch (Exception e) {
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
